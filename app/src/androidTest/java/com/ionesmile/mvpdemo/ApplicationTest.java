@@ -1,4 +1,4 @@
-package com.ionesmile.modularization;
+package com.ionesmile.mvpdemo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

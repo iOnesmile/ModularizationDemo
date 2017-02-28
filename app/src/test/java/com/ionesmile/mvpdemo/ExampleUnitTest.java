@@ -1,4 +1,4 @@
-package com.ionesmile.modularization;
+package com.ionesmile.mvpdemo;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.ionesmile.modularization.data.network;
+package com.ionesmile.mvpdemo.data.network;
 
 import com.google.gson.GsonBuilder;
 
@@ -8,7 +8,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by win764-1 on 2016/12/12.
+ * Created by iOnesmile on 2017/2/27 0027.
  */
 
 public class RetrofitHelper {
@@ -25,7 +25,7 @@ public class RetrofitHelper {
 
     private RetrofitHelper() {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("http://test.snaillove.com/cloudmusic/")
+                .baseUrl("http://www.iOnesmile.com/")
                 .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

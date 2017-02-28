@@ -1,13 +1,14 @@
-package com.ionesmile.modularization.data.manager;
+package com.ionesmile.mvpdemo.data.manager;
 
-import com.ionesmile.modularization.data.network.RetrofitHelper;
-import com.ionesmile.modularization.data.network.RetrofitService;
+
+import com.ionesmile.mvpdemo.data.network.RetrofitHelper;
+import com.ionesmile.mvpdemo.data.network.RetrofitService;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
- * Created by win764-1 on 2016/12/12.
+ * Created by iOnesmile on 2017/2/27 0027.
  */
 
 public class DataManager {
@@ -19,6 +20,6 @@ public class DataManager {
     }
 
     public Observable<ResponseBody> getSearchResult(String keyword){
-        return mRetrofitService.getChannelList(keyword, "zh");
+        return mRetrofitService.searchKey(keyword);
     }
 }

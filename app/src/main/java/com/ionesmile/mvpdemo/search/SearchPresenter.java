@@ -1,10 +1,6 @@
-package com.ionesmile.modularization.presenter;
+package com.ionesmile.mvpdemo.search;
 
-import android.text.TextUtils;
-
-import com.ionesmile.modularization.data.manager.DataManager;
-import com.ionesmile.modularization.ui.interfaces.IBaseView;
-import com.ionesmile.modularization.ui.interfaces.ISearchView;
+import com.ionesmile.mvpdemo.data.manager.DataManager;
 
 import java.io.IOException;
 
@@ -15,39 +11,36 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by iOnesmile on 2017/2/26.
+ * Created by iOnesmile on 2017/2/27 0027.
  */
-public class SearchPresenter implements Presenter {
+public class SearchPresenter implements SearchContract.Presenter {
 
-    private ISearchView searchView;
+    private SearchContract.View searchView;
     private CompositeSubscription mCompositeSubscription;
     private DataManager dataManager;
     private String mResult;
 
-    @Override
-    public void onCreate() {
-        mCompositeSubscription = new CompositeSubscription();
-        dataManager = new DataManager();
+    public SearchPresenter(SearchContract.View searchView, DataManager dataManager) {
+        this.searchView = searchView;
+        this.dataManager = dataManager;
+
+        this.searchView.setPresenter(this);
     }
 
     @Override
-    public void onStop() {
-        if (mCompositeSubscription.hasSubscriptions()){
+    public void start() {
+        mCompositeSubscription = new CompositeSubscription();
+    }
+
+    @Override
+    public void stop() {
+        if (mCompositeSubscription.hasSubscriptions()) {
             mCompositeSubscription.unsubscribe();
         }
     }
 
     @Override
-    public void attachView(IBaseView baseView) {
-        this.searchView = (ISearchView) baseView;
-    }
-
-    public void startSearch(){
-        final String searchKey = searchView.getSearchKey();
-        if (TextUtils.isEmpty(searchKey)) {
-            searchView.showToast("搜索关键字不能为空！");
-            return;
-        }
+    public void startSearch(String searchKey) {
         mCompositeSubscription.add(dataManager.getSearchResult(searchKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
